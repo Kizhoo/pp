@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>To-Kizhoo • Kirim Pesan Anonim</title>
+  <meta name="description" content="Kirim pesan dan foto secara anonim ke Kizhoo melalui Telegram">
+  <meta name="theme-color" content="#0f172a">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Background Animation -->
+  <div class="animated-bg">
+    <div class="shape shape-1"></div>
+    <div class="shape shape-2"></div>
+    <div class="shape shape-3"></div>
+    <div class="shape shape-4"></div>
+  </div>
+
+  <!-- Floating Particles -->
+  <div class="particles"></div>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-content">
+      <div class="logo-container">
+        <div class="logo-icon">
+          <i class="fas fa-paper-plane"></i>
+        </div>
+        <div class="logo-text">
+          <h1 class="logo">To-Kizhoo</h1>
+          <p class="tagline">Kirim pesan & foto secara anonim</p>
+        </div>
+      </div>
+      
+      <!-- Theme Toggle -->
+      <div class="theme-toggle">
+        <button id="themeToggle" class="theme-btn" aria-label="Toggle theme">
+          <i class="fas fa-moon"></i>
+          <i class="fas fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="main-container">
+    <!-- Stats Widget -->
+    <div class="stats-widget">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon">
+            <i class="fas fa-envelope"></i>
+          </div>
+          <div class="stat-content">
+            <div class="stat-value" id="totalMessages">0</div>
+            <div class="stat-label">Total Pesan</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">
+            <i class="fas fa-image"></i>
+          </div>
+          <div class="stat-content">
+            <div class="stat-value" id="totalPhotos">0</div>
+            <div class="stat-label">Total Foto</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">
+            <i class="fas fa-calendar-day"></i>
+          </div>
+          <div class="stat-content">
+            <div class="stat-value" id="todayMessages">0</div>
+            <div class="stat-label">Pesan Hari Ini</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Form Card -->
+    <div class="form-card glass">
+      <div class="card-header">
+        <h2><i class="fas fa-edit"></i> Tulis Pesan untuk Kizhoo</h2>
+        <p class="subtitle">Isi form di bawah dengan pesan yang ingin disampaikan</p>
+      </div>
+
+      <!-- Form Steps -->
+      <div class="form-steps">
+        <div class="step active">
+          <div class="step-number">1</div>
+          <span class="step-text">Nama</span>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <span class="step-text">Pesan</span>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <span class="step-text">Foto</span>
+        </div>
+        <div class="step">
+          <div class="step-number">4</div>
+          <span class="step-text">Kirim</span>
+        </div>
+      </div>
+
+      <div class="form-content">
+        <!-- Step 1: Nama -->
+        <div class="form-step active" id="step-1">
+          <div class="form-group">
+            <label for="username" class="form-label">
+              <i class="fas fa-user-circle"></i>
+              <span>Nama Kamu</span>
+              <span class="optional">(bisa pakai nama samaran)</span>
+            </label>
+            <div class="input-group">
+              <input type="text" id="username" class="form-input" placeholder="Masukkan nama atau panggilan" autocomplete="off">
+              <div class="input-icon">
+                <i class="fas fa-user"></i>
+              </div>
+            </div>
+            <div class="input-helper">
+              Nama akan muncul di pesan yang dikirim ke Kizhoo
+            </div>
+          </div>
+          
+          <div class="step-actions">
+            <button class="btn btn-primary btn-next" onclick="nextStep(2)">
+              Lanjut <i class="fas fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Step 2: Pesan -->
+        <div class="form-step" id="step-2">
+          <div class="form-group">
+            <label for="message" class="form-label">
+              <i class="fas fa-comment-alt"></i>
+              <span>Pesan Kamu</span>
+            </label>
+            <div class="textarea-group">
+              <textarea id="message" class="form-textarea" placeholder="Tulis pesan yang ingin disampaikan kepada Kizhoo..." rows="5"></textarea>
+              <div class="textarea-footer">
+                <div class="char-count">
+                  <span id="charCount">0</span>/1000 karakter
+                </div>
+                <div class="textarea-tools">
+                  <button class="tool-btn" onclick="formatText('bold')" title="Bold">
+                    <i class="fas fa-bold"></i>
+                  </button>
+                  <button class="tool-btn" onclick="formatText('italic')" title="Italic">
+                    <i class="fas fa-italic"></i>
+                  </button>
+                  <button class="tool-btn" onclick="insertEmoji('😊')" title="Emoji">
+                    <i class="fas fa-smile"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="input-helper">
+              Pesan akan dikirim secara pribadi melalui Telegram
+            </div>
+          </div>
+          
+          <div class="step-actions">
+            <button class="btn btn-secondary" onclick="prevStep(1)">
+              <i class="fas fa-arrow-left"></i> Kembali
+            </button>
+            <button class="btn btn-primary btn-next" onclick="nextStep(3)">
+              Lanjut <i class="fas fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Step 3: Foto -->
+        <div class="form-step" id="step-3">
+          <div class="form-group">
+            <label class="form-label">
+              <i class="fas fa-images"></i>
+              <span>Unggah Foto</span>
+              <span class="optional">(opsional)</span>
+            </label>
+            
+            <!-- Upload Area -->
+            <div class="upload-area" id="uploadArea">
+              <div class="upload-content">
+                <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                <h3 class="upload-title">Seret & Jatuhkan gambar di sini</h3>
+                <p class="upload-subtitle">atau <span class="browse-link">klik untuk memilih</span></p>
+                <p class="upload-info">
+                  <i class="fas fa-info-circle"></i>
+                  Format: JPG, PNG, GIF • Maksimal 5 file • 5MB per file
+                </p>
+              </div>
+              <input type="file" id="photoInput" class="file-input" multiple accept="image/*" capture="environment">
+            </div>
+            
+            <!-- Preview Area -->
+            <div class="preview-container" id="previewContainer">
+              <div class="preview-header">
+                <h4><i class="fas fa-image"></i> Preview Gambar</h4>
+                <div class="preview-actions">
+                  <button class="btn btn-sm btn-danger" id="clearAllBtn">
+                    <i class="fas fa-trash"></i> Hapus Semua
+                  </button>
+                </div>
+              </div>
+              <div class="preview-grid" id="previewGrid"></div>
+            </div>
+          </div>
+          
+          <div class="step-actions">
+            <button class="btn btn-secondary" onclick="prevStep(2)">
+              <i class="fas fa-arrow-left"></i> Kembali
+            </button>
+            <button class="btn btn-primary btn-next" onclick="nextStep(4)">
+              Lanjut <i class="fas fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Step 4: Review & Kirim -->
+        <div class="form-step" id="step-4">
+          <div class="review-card">
+            <div class="review-header">
+              <h3><i class="fas fa-eye"></i> Preview Pesan</h3>
+              <p class="review-subtitle">Periksa kembali pesan Anda sebelum dikirim</p>
+            </div>
+            
+            <div class="review-content">
+              <div class="review-item">
+                <div class="review-label">
+                  <i class="fas fa-user"></i> Dari:
+                </div>
+                <div class="review-value" id="reviewName">-</div>
+              </div>
+              
+              <div class="review-item">
+                <div class="review-label">
+                  <i class="fas fa-comment"></i> Pesan:
+                </div>
+                <div class="review-value" id="reviewMessage">-</div>
+              </div>
+              
+              <div class="review-item">
+                <div class="review-label">
+                  <i class="fas fa-image"></i> Foto:
+                </div>
+                <div class="review-value" id="reviewPhotos">0 foto</div>
+              </div>
+            </div>
+            
+            <div class="review-actions">
+              <button class="btn btn-secondary" onclick="prevStep(3)">
+                <i class="fas fa-edit"></i> Edit
+              </button>
+              <button class="btn btn-success" id="sendBtn" onclick="sendMessage()">
+                <i class="fas fa-paper-plane"></i> Kirim Sekarang
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recent Activity -->
+    <div class="activity-card glass">
+      <div class="card-header">
+        <h3><i class="fas fa-history"></i> Aktivitas Terbaru</h3>
+        <button class="btn-refresh" onclick="loadStats()" title="Refresh">
+          <i class="fas fa-sync-alt"></i>
+        </button>
+      </div>
+      <div class="activity-list" id="activityList">
+        <div class="activity-placeholder">
+          <i class="fas fa-clock"></i>
+          <p>Memuat aktivitas...</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Loading Overlay -->
+  <div class="loading-overlay" id="loadingOverlay">
+    <div class="loading-content">
+      <div class="spinner-container">
+        <div class="spinner">
+          <div class="spinner-circle"></div>
+          <div class="spinner-circle"></div>
+          <div class="spinner-circle"></div>
+          <div class="spinner-circle"></div>
+        </div>
+        <div class="spinner-text">Mengirim...</div>
+      </div>
+      
+      <div class="loading-steps">
+        <div class="step">
+          <div class="step-icon">
+            <i class="fas fa-check"></i>
+          </div>
+          <span>Memvalidasi</span>
+        </div>
+        <div class="step">
+          <div class="step-icon">
+            <i class="fas fa-check"></i>
+          </div>
+          <span>Mengupload</span>
+        </div>
+        <div class="step">
+          <div class="step-icon">
+            <i class="fas fa-check"></i>
+          </div>
+          <span>Mengirim</span>
+        </div>
+        <div class="step">
+          <div class="step-icon">
+            <i class="fas fa-check"></i>
+          </div>
+          <span>Selesai</span>
+        </div>
+      </div>
+      
+      <div class="loading-progress">
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <span class="progress-text" id="progressText">0%</span>
+      </div>
+      
+      <p class="loading-message" id="loadingMessage">Mempersiapkan pengiriman...</p>
+    </div>
+  </div>
+
+  <!-- Success Modal -->
+  <div class="modal" id="successModal">
+    <div class="modal-content">
+      <div class="modal-icon success">
+        <i class="fas fa-check-circle"></i>
+      </div>
+      <h3 class="modal-title">🎉 Pesan Terkirim!</h3>
+      <p class="modal-text">Pesan Anda telah berhasil dikirim ke Kizhoo melalui Telegram.</p>
+      <div class="modal-actions">
+        <button class="btn btn-primary" onclick="resetForm()">
+          <i class="fas fa-plus"></i> Kirim Pesan Baru
+        </button>
+        <button class="btn btn-secondary" onclick="closeModal()">
+          <i class="fas fa-times"></i> Tutup
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Emoji Picker (Hidden by default) -->
+  <div class="emoji-picker" id="emojiPicker">
+    <div class="emoji-header">
+      <h4>Pilih Emoji</h4>
+      <button class="emoji-close" onclick="closeEmojiPicker()">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="emoji-grid">
+      <!-- Emoji will be populated by JavaScript -->
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-info">
+        <p class="footer-logo">
+          <i class="fas fa-paper-plane"></i> To-Kizhoo
+        </p>
+        <p class="footer-text">
+          Kirim pesan anonim ke Kizhoo melalui Telegram
+        </p>
+      </div>
+      
+      <div class="footer-stats">
+        <div class="footer-stat">
+          <i class="fas fa-shield-alt"></i>
+          <span>100% Anonim</span>
+        </div>
+        <div class="footer-stat">
+          <i class="fas fa-bolt"></i>
+          <span>Real-time</span>
+        </div>
+        <div class="footer-stat">
+          <i class="fas fa-lock"></i>
+          <span>Aman & Terenkripsi</span>
+        </div>
+      </div>
+      
+      <div class="footer-meta">
+        <p>Made with <i class="fas fa-heart pulse"></i> for Kizhoo</p>
+        <p class="version">v2.0 • Powered by Supabase & Vercel</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Sounds -->
+  <audio id="soundClick" preload="auto">
+    <source src="https://assets.mixkit.co/sfx/preview/mixkit-select-click-1109.mp3" type="audio/mp3">
+  </audio>
+  <audio id="soundSuccess" preload="auto">
+    <source src="https://assets.mixkit.co/sfx/preview/mixkit-correct-answer-tone-2870.mp3" type="audio/mp3">
+  </audio>
+  <audio id="soundError" preload="auto">
+    <source src="https://assets.mixkit.co/sfx/preview/mixkit-wrong-answer-fail-notification-946.mp3" type="audio/mp3">
+  </audio>
+
+  <!-- JavaScript -->
+  <script src="script.js"></script>
+</body>
+</html>
